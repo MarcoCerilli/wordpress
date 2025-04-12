@@ -1,0 +1,25 @@
+# Abilita la riscrittura degli URL
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Se la richiesta non è per un file o una cartella esistente, reindirizza a index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Apache 2.4 - Permetti l'accesso ai file necessari
+<IfModule mod_authz_core.c>
+    Require all granted
+</IfModule>
+
+# Permetti l'accesso alla cartella "uploads" per le immagini
+<Directory "C:/xampp/htdocs/BlogPhP/uploads">
+    Require all granted
+</Directory>
+
+# Proteggi il file .htaccess stesso
+<Files ".htaccess">
+    Order Allow,Deny
+    Deny from all
+</Files>
